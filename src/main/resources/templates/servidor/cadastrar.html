@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+		<div class="page-header">
+			<nav class="navbar navbar-expand-md navbar-top bg-light">
+				<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+					<ul class="navbar-nav">
+						<li class="nav-item active"><i class="oi oi-caret-right"></i>
+							<span>Cadastrar Servidores</span></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+
+		<div class="container" id="cadastro">
+			<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${servidor.id == null} ? @{/servidor/salvar} : @{/servidor/editar}"
+				th:object="${servidor}" method="POST">
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="nome">Nome do Servidor</label> <input type="text"
+							class="form-control" id="nome" placeholder="Nome Completo"
+							autofocus="autofocus" th:field="*{nome}" />
+						<div class="invalid-feedback"></div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="matricula">Matricula do Servidor</label> <input
+							type="text" class="form-control" id="matricula"
+							placeholder="Matricula do servidor" autofocus="autofocus"
+							th:field="*{matricula}" />
+						<div class="invalid-feedback"></div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="descricao">nome da Lotação</label> <select
+							id="lotacao" class="form-control" th:field="*{lotacao}">
+
+							<option value="">Selecione</option>
+							<option th:each="l: ${lotacoes}" th:value="${l.id}"
+								th:text="${l.nome}"></option>
+
+						</select>
+						<div class="invalid-feedback"></div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="data">Data de Contratação</label> <input type="date"
+							class="form-control" id="data" th:field="*{data}" />
+						<div class="invalid-feedback"></div>
+					</div>
+				</div>
+				<br /> <input type="hidden" id="id" th:field="*{id}" />
+				<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+			</form>
+		</div>
+	</section>
+
+</body>
+
+</html>
